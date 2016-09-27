@@ -1,7 +1,8 @@
-  #!/usr/bin/env python
+#!/usr/bin/env python
 #
 # A library that provides a Python interface to the Telegram Bot API
-# Copyright (C) 2015 Leandro Toledo de Souza <leandrotoeldodesouza@gmail.com>
+# Copyright (C) 2015-2016
+# Leandro Toledo de Souza <devs@python-telegram-bot.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,12 +16,13 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see [http://www.gnu.org/licenses/].
-
 """This module contains a object that represents Tests for Telegram Contact"""
 
-import os
 import unittest
 import sys
+
+from flaky import flaky
+
 sys.path.append('.')
 
 import telegram
@@ -44,10 +46,7 @@ class ContactTest(BaseTest, unittest.TestCase):
         }
 
     def test_contact_de_json(self):
-        """Test Contact.de_json() method"""
-        print('Testing Contact.de_json()')
-
-        contact = telegram.Contact.de_json(self.json_dict)
+        contact = telegram.Contact.de_json(self.json_dict, self._bot)
 
         self.assertEqual(contact.phone_number, self.phone_number)
         self.assertEqual(contact.first_name, self.first_name)
@@ -55,24 +54,30 @@ class ContactTest(BaseTest, unittest.TestCase):
         self.assertEqual(contact.user_id, self.user_id)
 
     def test_contact_to_json(self):
-        """Test Contact.to_json() method"""
-        print('Testing Contact.to_json()')
-
-        contact = telegram.Contact.de_json(self.json_dict)
+        contact = telegram.Contact.de_json(self.json_dict, self._bot)
 
         self.assertTrue(self.is_json(contact.to_json()))
 
     def test_contact_to_dict(self):
-        """Test Contact.to_dict() method"""
-        print('Testing Contact.to_dict()')
-
-        contact = telegram.Contact.de_json(self.json_dict)
+        contact = telegram.Contact.de_json(self.json_dict, self._bot)
 
         self.assertTrue(self.is_dict(contact.to_dict()))
         self.assertEqual(contact['phone_number'], self.phone_number)
         self.assertEqual(contact['first_name'], self.first_name)
         self.assertEqual(contact['last_name'], self.last_name)
         self.assertEqual(contact['user_id'], self.user_id)
+
+
+''' Commented out, because it would cause "Too Many Requests (429)" errors.
+    @flaky(3, 1)
+    def test_reply_contact(self):
+        """Test for Message.reply_contact"""
+        message = self._bot.sendMessage(self._chat_id, '.')
+        message = message.reply_contact(self.phone_number, self.first_name)
+
+        self.assertEqual(message.contact.phone_number, self.phone_number)
+        self.assertEqual(message.contact.first_name, self.first_name)
+'''
 
 if __name__ == '__main__':
     unittest.main()

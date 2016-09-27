@@ -2,7 +2,8 @@
 # pylint: disable=C0103,W0622
 #
 # A library that provides a Python interface to the Telegram Bot API
-# Copyright (C) 2015 Leandro Toledo de Souza <leandrotoeldodesouza@gmail.com>
+# Copyright (C) 2015-2016
+# Leandro Toledo de Souza <devs@python-telegram-bot.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser Public License as published by
@@ -16,8 +17,7 @@
 #
 # You should have received a copy of the GNU Lesser Public License
 # along with this program.  If not, see [http://www.gnu.org/licenses/].
-
-"""This module contains a object that represents a Telegram User"""
+"""This module contains a object that represents a Telegram User."""
 
 from telegram import TelegramObject
 
@@ -41,12 +41,10 @@ class User(TelegramObject):
         type (Optional[str]):
         last_name (Optional[str]):
         username (Optional[str]):
+        bot (Optional[Bot]): The Bot to use for instance methods
     """
 
-    def __init__(self,
-                 id,
-                 first_name,
-                 **kwargs):
+    def __init__(self, id, first_name, bot=None, **kwargs):
         # Required
         self.id = int(id)
         self.first_name = first_name
@@ -54,6 +52,8 @@ class User(TelegramObject):
         self.type = kwargs.get('type', '')
         self.last_name = kwargs.get('last_name', '')
         self.username = kwargs.get('username', '')
+
+        self.bot = bot
 
     @property
     def name(self):
@@ -65,10 +65,11 @@ class User(TelegramObject):
         return self.first_name
 
     @staticmethod
-    def de_json(data):
+    def de_json(data, bot):
         """
         Args:
-            data (str):
+            data (dict):
+            bot (telegram.Bot):
 
         Returns:
             telegram.User:
@@ -76,4 +77,10 @@ class User(TelegramObject):
         if not data:
             return None
 
-        return User(**data)
+        return User(bot=bot, **data)
+
+    def get_profile_photos(self, *args, **kwargs):
+        """
+        Shortcut for ``bot.getUserProfilePhotos(update.message.from_user.id, *args, **kwargs)``
+        """
+        return self.bot.getUserProfilePhotos(self.id, *args, **kwargs)

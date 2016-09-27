@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 #
 # A library that provides a Python interface to the Telegram Bot API
-# Copyright (C) 2015 Leandro Toledo de Souza <leandrotoeldodesouza@gmail.com>
+# Copyright (C) 2015-2016
+# Leandro Toledo de Souza <devs@python-telegram-bot.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser Public License as published by
@@ -15,17 +16,14 @@
 #
 # You should have received a copy of the GNU Lesser Public License
 # along with this program.  If not, see [http://www.gnu.org/licenses/].
-
-"""This module contains a object that represents a Telegram File"""
+"""This module contains a object that represents a Telegram File."""
 
 from os.path import basename
 
 from telegram import TelegramObject
-from telegram.utils.request import download as _download
 
 
 class File(TelegramObject):
-
     """This object represents a Telegram File.
 
     Attributes:
@@ -35,27 +33,31 @@ class File(TelegramObject):
 
     Args:
         file_id (str):
+        bot (telegram.Bot):
         **kwargs: Arbitrary keyword arguments.
 
     Keyword Args:
         file_size (Optional[int]):
         file_path (Optional[str]):
+
     """
 
-    def __init__(self,
-                 file_id,
-                 **kwargs):
+    def __init__(self, file_id, bot, **kwargs):
         # Required
         self.file_id = str(file_id)
+
         # Optionals
         self.file_size = int(kwargs.get('file_size', 0))
         self.file_path = str(kwargs.get('file_path', ''))
 
+        self.bot = bot
+
     @staticmethod
-    def de_json(data):
+    def de_json(data, bot):
         """
         Args:
-            data (str):
+            data (dict):
+            bot (telegram.Bot):
 
         Returns:
             telegram.File:
@@ -63,19 +65,19 @@ class File(TelegramObject):
         if not data:
             return None
 
-        return File(**data)
+        return File(bot=bot, **data)
 
-    def download(self,
-                 custom_path=None):
+    def download(self, custom_path=None):
         """
         Args:
             custom_path (str):
+
         """
         url = self.file_path
 
         if custom_path:
-            filename = basename(custom_path)
+            filename = custom_path
         else:
             filename = basename(url)
 
-        _download(url, filename)
+        self.bot.request.download(url, filename)

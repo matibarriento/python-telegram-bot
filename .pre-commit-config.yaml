@@ -1,0 +1,18 @@
+-   repo: git://github.com/pre-commit/mirrors-yapf
+    sha: v0.11.0
+    hooks:
+    -   id: yapf
+        files: ^(telegram|tests)/.*\.py$
+-   repo: git://github.com/pre-commit/pre-commit-hooks
+    sha: 18d7035de5388cc7775be57f529c154bf541aab9
+    hooks:
+    -   id: flake8
+        files: ^telegram/.*\.py$
+-   repo: git://github.com/pre-commit/mirrors-pylint
+    sha: v1.5.5
+    hooks:
+    -   id: pylint
+        files: ^telegram/.*\.py$
+        args:
+        - --errors-only
+        - --disable=no-name-in-module,import-error

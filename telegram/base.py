@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 #
 # A library that provides a Python interface to the Telegram Bot API
-# Copyright (C) 2015 Leandro Toledo de Souza <leandrotoeldodesouza@gmail.com>
+# Copyright (C) 2015-2016
+# Leandro Toledo de Souza <devs@python-telegram-bot.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser Public License as published by
@@ -15,15 +16,18 @@
 #
 # You should have received a copy of the GNU Lesser Public License
 # along with this program.  If not, see [http://www.gnu.org/licenses/].
+"""Base class for Telegram Objects."""
 
-"""Base class for Telegram Objects"""
+try:
+    import ujson as json
+except ImportError:
+    import json
 
-import json
 from abc import ABCMeta
 
 
 class TelegramObject(object):
-    """Base class for most telegram objects"""
+    """Base class for most telegram objects."""
 
     __metaclass__ = ABCMeta
 
@@ -34,15 +38,21 @@ class TelegramObject(object):
         return self.__dict__[item]
 
     @staticmethod
-    def de_json(data):
+    def de_json(data, bot):
         """
         Args:
-            data (str):
+            data (dict):
+            bot (telegram.Bot):
 
         Returns:
-            telegram.TelegramObject:
+            dict:
         """
-        raise NotImplementedError
+        if not data:
+            return None
+
+        data = data.copy()
+
+        return data
 
     def to_json(self):
         """
@@ -58,8 +68,12 @@ class TelegramObject(object):
         """
         data = dict()
 
-        for key, value in self.__dict__.items():
-            if value:
+        for key in iter(self.__dict__):
+            if key == 'bot':
+                continue
+
+            value = self.__dict__[key]
+            if value is not None:
                 if hasattr(value, 'to_dict'):
                     data[key] = value.to_dict()
                 else:

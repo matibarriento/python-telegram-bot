@@ -1,3 +1,196 @@
+=======
+Changes
+=======
+
+**2016-09-24**
+
+*Released 5.1*
+
+- Drop Python 2.6 support
+- Deprecate ``telegram.Emoji``
+
+- Use ``ujson`` if available
+- Add instance methods to ``Message``, ``Chat``, ``User``, ``InlineQuery`` and ``CallbackQuery``
+- RegEx filtering for ``CallbackQueryHandler`` and ``InlineQueryHandler``
+- New ``MessageHandler`` filters: ``forwarded`` and ``entity``
+- Add ``Message.get_entity`` to correctly handle UTF-16 codepoints and ``MessageEntity`` offsets
+- Fix bug in ``ConversationHandler`` when first handler ends the conversation
+- Allow multiple ``Dispatcher`` instances
+- Add ``ChatMigrated`` Exception
+- Properly split and handle arguments in ``CommandHandler``
+
+**2016-07-15**
+
+*Released 5.0*
+
+- Rework ``JobQueue``
+- Introduce ``ConversationHandler``
+
+**2016-07-12**
+
+*Released 4.3.4*
+
+- Fix proxy support with ``urllib3`` when proxy requires auth
+
+**2016-07-08**
+
+*Released 4.3.3*
+
+- Fix proxy support with ``urllib3``
+
+**2016-07-04**
+
+*Released 4.3.2*
+
+- Fix: Use ``timeout`` parameter in all API methods
+
+**2016-06-29**
+
+*Released 4.3.1*
+
+- Update wrong requirement: ``urllib3>=1.10``
+
+**2016-06-28**
+
+*Released 4.3*
+
+- Use ``urllib3.PoolManager`` for connection re-use
+- Rewrite ``run_async`` decorator to re-use threads
+- New requirements: ``urllib3`` and ``certifi``
+
+**2016-06-10**
+
+*Released 4.2.1*
+
+- Fix ``CallbackQuery.to_dict()`` bug (thanks to @jlmadurga)
+- Fix ``editMessageText`` exception when receiving a ``CallbackQuery``
+
+**2016-05-28**
+
+*Released 4.2*
+
+- Implement Bot API 2.1
+- Move ``botan`` module to ``telegram.contrib``
+- New exception type: ``BadRequest``
+
+**2016-05-22**
+
+*Released 4.1.2*
+
+- Fix ``MessageEntity`` decoding with Bot API 2.1 changes
+
+**2016-05-16**
+
+*Released 4.1.1*
+
+- Fix deprecation warning in ``Dispatcher``
+
+**2016-05-15**
+
+*Released 4.1*
+
+- Implement API changes from May 6, 2016
+- Fix bug when ``start_polling`` with ``clean=True``
+- Methods now have snake_case equivalent, for example ``telegram.Bot.send_message`` is the same as ``telegram.Bot.sendMessage``
+
+**2016-05-01**
+
+*Released 4.0.3*
+
+- Add missing attribute ``location`` to ``InlineQuery``
+
+**2016-04-29**
+
+*Released 4.0.2*
+
+- Bugfixes
+- ``KeyboardReplyMarkup`` now accepts ``str`` again
+
+**2016-04-27**
+
+*Released 4.0.1*
+
+- Implement Bot API 2.0
+- Almost complete recode of ``Dispatcher``
+- Please read the `Transition Guide to 4.0 <https://github.com/python-telegram-bot/python-telegram-bot/wiki/Transition-guide-to-Version-4.0>`_
+- **Changes from 4.0rc1**
+    - The syntax of filters for ``MessageHandler`` (upper/lower cases)
+    - Handler groups are now identified by ``int`` only, and ordered
+- **Note:** v4.0 has been skipped due to a PyPI accident
+
+**2016-04-22**
+
+*Released 4.0rc1*
+
+- Implement Bot API 2.0
+- Almost complete recode of ``Dispatcher``
+- Please read the `Transistion Guide to 4.0 <https://github.com/python-telegram-bot/python-telegram-bot/wiki/Transistion-guide-to-Version-4.0>`_
+
+**2016-03-22**
+
+*Released 3.4*
+
+- Move ``Updater``, ``Dispatcher`` and ``JobQueue`` to new ``telegram.ext`` submodule (thanks to @rahiel)
+- Add ``disable_notification`` parameter (thanks to @aidarbiktimirov)
+- Fix bug where commands sent by Telegram Web would not be recognized (thanks to @shelomentsevd)
+- Add option to skip old updates on bot startup
+- Send files from ``BufferedReader``
+
+**2016-02-28**
+
+*Released 3.3*
+
+- Inline bots
+- Send any file by URL
+- Specialized exceptions: ``Unauthorized``, ``InvalidToken``, ``NetworkError`` and ``TimedOut``
+- Integration for botan.io (thanks to @ollmer)
+- HTML Parsemode (thanks to @jlmadurga)
+- Bugfixes and under-the-hood improvements
+
+**Very special thanks to Noam Meltzer (@tsnoam) for all of his work!**
+
+**2016-01-09**
+
+*Released 3.3b1*
+
+- Implement inline bots (beta)
+
+**2016-01-05**
+
+*Released 3.2.0*
+
+- Introducing ``JobQueue`` (original author: @franciscod)
+- Streamlining all exceptions to ``TelegramError`` (Special thanks to @tsnoam)
+- Proper locking of ``Updater`` and ``Dispatcher`` ``start`` and ``stop`` methods
+- Small bugfixes
+
+**2015-12-29**
+
+*Released 3.1.2*
+
+- Fix custom path for file downloads
+- Don't stop the dispatcher thread on uncaught errors in handlers
+
+**2015-12-21**
+
+*Released 3.1.1*
+
+- Fix a bug where asynchronous handlers could not have additional arguments
+- Add ``groups`` and ``groupdict`` as additional arguments for regex-based handlers
+
+**2015-12-16**
+
+*Released 3.1.0*
+
+- The ``chat``-field in ``Message`` is now of type ``Chat``. (API update Oct 8 2015)
+- ``Message`` now contains the optional fields ``supergroup_chat_created``, ``migrate_to_chat_id``, ``migrate_from_chat_id`` and ``channel_chat_created``. (API update Nov 2015)
+
+**2015-12-08**
+
+*Released 3.0.0*
+
+- Introducing the ``Updater`` and ``Dispatcher`` classes
+
 **2015-11-11**
 
 *Released 2.9.2*

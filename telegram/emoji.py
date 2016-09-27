@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # flake8: noqa
-# pylint: disable=C0103,C0301,R0903
+# pylint: disable=C0103,R0903,E0213
 #
 # A library that provides a Python interface to the Telegram Bot API
-# Copyright (C) 2015 Leandro Toledo de Souza <leandrotoeldodesouza@gmail.com>
+# Copyright (C) 2015-2016
+# Leandro Toledo de Souza <devs@python-telegram-bot.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser Public License as published by
@@ -17,14 +18,26 @@
 #
 # You should have received a copy of the GNU Lesser Public License
 # along with this program.  If not, see [http://www.gnu.org/licenses/].
+"""This module contains a object that represents an Emoji.
 
-"""This module contains a object that represents an Emoji"""
+This module will be removed in the future.
+"""
 
-from future.utils import bytes_to_native_str as n
+import warnings
+
+from future.utils import bytes_to_native_str
 
 
-class Emoji(object):
+class Emoji2(object):
     """This object represents an Emoji."""
+
+    def n(b):
+
+        def e(cls):
+            warnings.warn("telegram.Emoji is being deprecated, please see https://git.io/v6DeB")
+            return bytes_to_native_str(b)
+
+        return property(e)
 
     GRINNING_FACE_WITH_SMILING_EYES = n(b'\xF0\x9F\x98\x81')
     FACE_WITH_TEARS_OF_JOY = n(b'\xF0\x9F\x98\x82')
@@ -162,26 +175,26 @@ class Emoji(object):
     SQUARED_SOS = n(b'\xF0\x9F\x86\x98')
     SQUARED_UP_WITH_EXCLAMATION_MARK = n(b'\xF0\x9F\x86\x99')
     SQUARED_VS = n(b'\xF0\x9F\x86\x9A')
-    REGIONAL_INDICATOR_SYMBOL_LETTER_D_PLUS_REGIONAL_INDICATOR_SYMBOL_LETTER_E\
-        = n(b'\xF0\x9F\x87\xA9\xF0\x9F\x87\xAA')
-    REGIONAL_INDICATOR_SYMBOL_LETTER_G_PLUS_REGIONAL_INDICATOR_SYMBOL_LETTER_B\
-        = n(b'\xF0\x9F\x87\xAC\xF0\x9F\x87\xA7')
-    REGIONAL_INDICATOR_SYMBOL_LETTER_C_PLUS_REGIONAL_INDICATOR_SYMBOL_LETTER_N\
-        = n(b'\xF0\x9F\x87\xA8\xF0\x9F\x87\xB3')
-    REGIONAL_INDICATOR_SYMBOL_LETTER_J_PLUS_REGIONAL_INDICATOR_SYMBOL_LETTER_P\
-        = n(b'\xF0\x9F\x87\xAF\xF0\x9F\x87\xB5')
-    REGIONAL_INDICATOR_SYMBOL_LETTER_K_PLUS_REGIONAL_INDICATOR_SYMBOL_LETTER_R\
-        = n(b'\xF0\x9F\x87\xB0\xF0\x9F\x87\xB7')
-    REGIONAL_INDICATOR_SYMBOL_LETTER_F_PLUS_REGIONAL_INDICATOR_SYMBOL_LETTER_R\
-        = n(b'\xF0\x9F\x87\xAB\xF0\x9F\x87\xB7')
-    REGIONAL_INDICATOR_SYMBOL_LETTER_E_PLUS_REGIONAL_INDICATOR_SYMBOL_LETTER_S\
-        = n(b'\xF0\x9F\x87\xAA\xF0\x9F\x87\xB8')
-    REGIONAL_INDICATOR_SYMBOL_LETTER_I_PLUS_REGIONAL_INDICATOR_SYMBOL_LETTER_T\
-        = n(b'\xF0\x9F\x87\xAE\xF0\x9F\x87\xB9')
-    REGIONAL_INDICATOR_SYMBOL_LETTER_U_PLUS_REGIONAL_INDICATOR_SYMBOL_LETTER_S\
-        = n(b'\xF0\x9F\x87\xBA\xF0\x9F\x87\xB8')
-    REGIONAL_INDICATOR_SYMBOL_LETTER_R_PLUS_REGIONAL_INDICATOR_SYMBOL_LETTER_U\
-        = n(b'\xF0\x9F\x87\xB7\xF0\x9F\x87\xBA')
+    REGIONAL_INDICATOR_SYMBOL_LETTER_D_PLUS_REGIONAL_INDICATOR_SYMBOL_LETTER_E = n(
+        b'\xF0\x9F\x87\xA9\xF0\x9F\x87\xAA')
+    REGIONAL_INDICATOR_SYMBOL_LETTER_G_PLUS_REGIONAL_INDICATOR_SYMBOL_LETTER_B = n(
+        b'\xF0\x9F\x87\xAC\xF0\x9F\x87\xA7')
+    REGIONAL_INDICATOR_SYMBOL_LETTER_C_PLUS_REGIONAL_INDICATOR_SYMBOL_LETTER_N = n(
+        b'\xF0\x9F\x87\xA8\xF0\x9F\x87\xB3')
+    REGIONAL_INDICATOR_SYMBOL_LETTER_J_PLUS_REGIONAL_INDICATOR_SYMBOL_LETTER_P = n(
+        b'\xF0\x9F\x87\xAF\xF0\x9F\x87\xB5')
+    REGIONAL_INDICATOR_SYMBOL_LETTER_K_PLUS_REGIONAL_INDICATOR_SYMBOL_LETTER_R = n(
+        b'\xF0\x9F\x87\xB0\xF0\x9F\x87\xB7')
+    REGIONAL_INDICATOR_SYMBOL_LETTER_F_PLUS_REGIONAL_INDICATOR_SYMBOL_LETTER_R = n(
+        b'\xF0\x9F\x87\xAB\xF0\x9F\x87\xB7')
+    REGIONAL_INDICATOR_SYMBOL_LETTER_E_PLUS_REGIONAL_INDICATOR_SYMBOL_LETTER_S = n(
+        b'\xF0\x9F\x87\xAA\xF0\x9F\x87\xB8')
+    REGIONAL_INDICATOR_SYMBOL_LETTER_I_PLUS_REGIONAL_INDICATOR_SYMBOL_LETTER_T = n(
+        b'\xF0\x9F\x87\xAE\xF0\x9F\x87\xB9')
+    REGIONAL_INDICATOR_SYMBOL_LETTER_U_PLUS_REGIONAL_INDICATOR_SYMBOL_LETTER_S = n(
+        b'\xF0\x9F\x87\xBA\xF0\x9F\x87\xB8')
+    REGIONAL_INDICATOR_SYMBOL_LETTER_R_PLUS_REGIONAL_INDICATOR_SYMBOL_LETTER_U = n(
+        b'\xF0\x9F\x87\xB7\xF0\x9F\x87\xBA')
     SQUARED_KATAKANA_KOKO = n(b'\xF0\x9F\x88\x81')
     SQUARED_KATAKANA_SA = n(b'\xF0\x9F\x88\x82')
     SQUARED_CJK_UNIFIED_IDEOGRAPH_7121 = n(b'\xF0\x9F\x88\x9A')
@@ -857,7 +870,8 @@ class Emoji(object):
     NO_MOBILE_PHONES = n(b'\xF0\x9F\x93\xB5')
     TWISTED_RIGHTWARDS_ARROWS = n(b'\xF0\x9F\x94\x80')
     CLOCKWISE_RIGHTWARDS_AND_LEFTWARDS_OPEN_CIRCLE_ARROWS = n(b'\xF0\x9F\x94\x81')
-    CLOCKWISE_RIGHTWARDS_AND_LEFTWARDS_OPEN_CIRCLE_ARROWS_WITH_CIRCLED_ONE_OVERLAY = n(b'\xF0\x9F\x94\x82')
+    CLOCKWISE_RIGHTWARDS_AND_LEFTWARDS_OPEN_CIRCLE_ARROWS_WITH_CIRCLED_ONE_OVERLAY = n(
+        b'\xF0\x9F\x94\x82')
     ANTICLOCKWISE_DOWNWARDS_AND_UPWARDS_OPEN_CIRCLE_ARROWS = n(b'\xF0\x9F\x94\x84')
     LOW_BRIGHTNESS_SYMBOL = n(b'\xF0\x9F\x94\x85')
     HIGH_BRIGHTNESS_SYMBOL = n(b'\xF0\x9F\x94\x86')
@@ -878,3 +892,6 @@ class Emoji(object):
     CLOCK_FACE_TEN_THIRTY = n(b'\xF0\x9F\x95\xA5')
     CLOCK_FACE_ELEVEN_THIRTY = n(b'\xF0\x9F\x95\xA6')
     CLOCK_FACE_TWELVE_THIRTY = n(b'\xF0\x9F\x95\xA7')
+
+
+Emoji = Emoji2()
